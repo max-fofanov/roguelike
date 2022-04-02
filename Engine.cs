@@ -269,7 +269,7 @@ namespace roguelike_spbu
                     break;
                 case Action.Attack:
                     if (nextMove.Target == player.ID)
-                        entity.Attack(player, entity);
+                        entity.Attack(player);
                     else
                         for (int i = 0; i < entities.Count(); i++)
                         {
