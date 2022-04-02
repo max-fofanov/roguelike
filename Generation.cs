@@ -483,12 +483,13 @@ namespace roguelike_spbu {
                     }
                     if(flag2 &&  hub.Tiles[10+i][60+k].Symbol == "▲")
                     {
-                        continue;
+                        break;
                     }
                     if (flag2 && hub.Tiles[10+i][60+k].Symbol == " ")
                     {
                         hub.Tiles[10+i][60+k] = new HubField (10+i, 60+k);
                     }
+                    k+=1;
                 }
             }
             return hub;

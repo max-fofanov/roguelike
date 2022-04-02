@@ -160,11 +160,11 @@ namespace roguelike_spbu
         {
             RangeOfView = 14;
             Symbol = "D";
-            PrimaryForegroundColor = Color.Blue;
+            PrimaryForegroundColor = ConsoleColor.Cyan;
             Name = "Devil";
             //Stamina = 1;
             ForceType = "dark";
-            Damage = 30;
+            Damage = 50;
             SetHealth(250);
             CreatureType = "heavy";
             RangeOfHit = 2;
@@ -188,6 +188,7 @@ namespace roguelike_spbu
             CreatureType = "normal";
             RangeOfHit = 2;
             XP = 10;
+            Description = "1) Common warriors of the old world, in fact, are not only warriors, but also officials or scientists of the highest ranks. \n2) To get into the citadel of angels, you need a special talent, well, or connections. Therefore, their authority over the last hundred years has somewhat decreased\n3) Despite the name, as a rule, they do not have wings, this is inherent in the best - worthy.";
         }
     }
     [Serializable]

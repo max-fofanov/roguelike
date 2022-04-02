@@ -357,6 +357,15 @@ namespace roguelike_spbu
 
             return totalDamage;
         }
+        public int GetTotalLifesteal()
+        {
+            int totalLifesteal = Lifesteal + (RightHand ?? new Item()).Lifesteal;
+
+            if (!IsTwoHandWeaponEquiped())
+                totalLifesteal += (LeftHand ?? new Item()).Lifesteal;
+
+            return totalLifesteal;
+        }
         public int GetTotalDefence()
         {
             int totalDefence = (Body ?? new Item()).Defence + (RightHand ?? new Item()).Defence;
@@ -366,9 +375,10 @@ namespace roguelike_spbu
 
             return totalDefence;
         }
-        public virtual void Attack(Entity target)
+        public virtual void Attack(Entity target, Entity initiator)
         {
             target.GetDamage(GetTotalAttack());
+            initiator.SetHealth(initiator.HealthPoints + initiator.GetTotalLifesteal(), regen);
         }
         public virtual void GetDamage(int damage)
         {

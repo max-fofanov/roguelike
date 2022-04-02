@@ -41,6 +41,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public int Lifesteal
+        {
+            get;
+            set;
+        }
         public float RangeOfHit
         {
             get;

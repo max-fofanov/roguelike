@@ -13,7 +13,21 @@ namespace roguelike_spbu
         public static int Alias(float[] probabilities)
         {
             float[] table = new float[probabilities.Length];
-            probabilities.CopyTo(table, 0);
+            int[] indexies = new int[probabilities.Length];
+            int index = 0;
+            for(int i =0; i < probabilities.Length; i++)
+            {
+                if (probabilities[i] <= 0)
+                {
+                    index +=1;
+                }
+                else
+                {
+                    table[i] = probabilities[i];
+                }
+                indexies[i] = index; 
+            }
+            Array.Resize(ref table, probabilities.Length - index);
 
             float fullchance = table.Sum();
 
@@ -64,7 +78,7 @@ namespace roguelike_spbu
             r /= (float) Math.Pow(10, length);
 
             int cellnumb = (int) (r * quantity / fullchance);
-            return r < bord[cellnumb].border ?  bord[cellnumb].LeftEvent : bord[cellnumb].RightEvent;
+            return r < bord[cellnumb].border ?  indexies[bord[cellnumb].LeftEvent] : indexies[bord[cellnumb].RightEvent];
         }
     }
 }
