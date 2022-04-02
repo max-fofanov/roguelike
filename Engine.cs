@@ -275,7 +275,7 @@ namespace roguelike_spbu
                         {
                             if (entities[i].ID == nextMove.Target)
                             {
-                                player.Attack(entities[i], player);
+                                player.Attack(entities[i]);
 
                                 //entities[i].HealthPoints -= player.Damage;
                                 break;
