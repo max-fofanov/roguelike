@@ -4,5 +4,8 @@ obj/
 *.wav
 *.dat
 *.csproj
+*.sln
 
+.vscode/
+.vscode/*
 
