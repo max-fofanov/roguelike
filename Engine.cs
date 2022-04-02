@@ -221,72 +221,87 @@ namespace roguelike_spbu
         }
         void ElementaryTurn(Entity entity)
         {
-            ActionInfo nextMove = entity.GetNextMove(map, entities, player);
+            for (int j = 0; j < entity.Speed; j++) {
+            
+                ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
-            switch (nextMove.Action)
-            {
-                case Action.Up:
-                    if (IsNewPlaceOK(entity.X - 1, entity.Y))
-                        entity.moveUp();
-                    
-                    GenerateMap(entity, Generation.From.Up);
-                    break;
-                case Action.Down:
-                    if (IsNewPlaceOK(entity.X + 1, entity.Y))
-                        entity.moveDown();
+                switch (nextMove.Action)
+                {
+                    case Action.Up:
+                        if (IsNewPlaceOK(entity.X - 1, entity.Y))
+                            entity.moveUp();
                         
-                    GenerateMap(entity, Generation.From.Down); 
-                    break;
-                case Action.Left:
-                    if (IsNewPlaceOK(entity.X, entity.Y - 1))
-                        entity.moveLeft();
+                        GenerateMap(entity, Generation.From.Up);
+                        new Engine().Turn(true);
+                        break;
+                    case Action.Down:
+                        if (IsNewPlaceOK(entity.X + 1, entity.Y))
+                            entity.moveDown();
+                            
+                        GenerateMap(entity, Generation.From.Down); 
+                        new Engine().Turn(true);
+                        break;
+                    case Action.Left:
+                        if (IsNewPlaceOK(entity.X, entity.Y - 1))
+                            entity.moveLeft();
 
-                    GenerateMap(entity, Generation.From.Left);
-                    break;
-                case Action.Right:
-                    if (IsNewPlaceOK(entity.X, entity.Y + 1))
-                        entity.moveRight();
+                        GenerateMap(entity, Generation.From.Left);
+                        new Engine().Turn(true);
+                        break;
+                    case Action.Right:
+                        if (IsNewPlaceOK(entity.X, entity.Y + 1))
+                            entity.moveRight();
 
-                    GenerateMap(entity, Generation.From.Right);
-                    break;
-                case Action.Quit:
-                    Program.NormilizeConsole();
-                    break;
-                case Action.Cheat:
-                    CheatConsole.Cheat(this);
-                    break;    
-                case Action.StayInPlace:
-                    entity.PassTurn();
-                    break;
-                case Action.ChangeColor:
-                    break;
-                case Action.GiveEffect:
-                    break;
-                case Action.UseItem:
-                    //Console.Beep();
-                    entity.UseItem(nextMove.Target, nextMove.Position);
-                    break;
-                case Action.Attack:
-                    if (nextMove.Target == player.ID)
-                        entity.Attack(player);
-                    else
-                        for (int i = 0; i < entities.Count(); i++)
-                        {
-                            if (entities[i].ID == nextMove.Target)
-                            {
-                                player.Attack(entities[i]);
-                                //entities[i].HealthPoints -= player.Damage;
-                                break;
-                            }
-                        }
-
-                    if (player.HealthPoints <= 0) {
-                        Statistics.statistics["deaths"] = (int) Statistics.statistics["deaths"] + 1;
+                        GenerateMap(entity, Generation.From.Right);
+                        new Engine().Turn(true);
+                        break;
+                    case Action.Quit:
                         Program.NormilizeConsole();
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    case Action.Cheat:
+                        CheatConsole.Cheat(this);
+                        new Engine().Turn(true);
+                        break;    
+                    case Action.StayInPlace:
+                        entity.PassTurn();
+                        break;
+                    case Action.ChangeColor:
+                        break;
+                    case Action.GiveEffect:
+                        break;
+                    case Action.UseItem:
+                        //Console.Beep();
+                        entity.UseItem(nextMove.Target, nextMove.Position);
+                        new Engine().Turn(true);
+                        break;
+                    case Action.Attack:
+                        if (nextMove.Target == player.ID) {
+                            entity.Attack(player);
+                            new Engine().Turn(true);
+                        }
+                        else {
+                            for (int i = 0; i < entities.Count(); i++)
+                            {
+                                if (entities[i].ID == nextMove.Target)
+                                {
+                                    player.Attack(entities[i]);
+                                    new Engine().Turn(true);
+                                    //entities[i].HealthPoints -= player.Damage;
+                                    break;
+                                }
+                            }
+                            new Engine().Turn(true);
+                        }
+                        
+                        if (player.HealthPoints <= 0) {
+                            Statistics.statistics["deaths"] = (int) Statistics.statistics["deaths"] + 1;
+                            Program.NormilizeConsole();
+                        }
+                        break;
+                    default:
+                        new Engine().Turn(true);
+                        break;
+                }
             }
         }
     }
