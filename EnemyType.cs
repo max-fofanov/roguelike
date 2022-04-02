@@ -33,7 +33,7 @@ namespace roguelike_spbu
             Name = "Hobgoblin";
             //Stamina = 1;
             ForceType = "neutral";
-            Damage = 25;
+            Damage = 30;
             SetHealth(45);
             CreatureType = "normal";
             RangeOfHit = 1;
@@ -52,7 +52,7 @@ namespace roguelike_spbu
             Name = "Goblin Flinger";
             //Stamina = 1;
             ForceType = "neutral";
-            Damage = 7;
+            Damage = 15;
             SetHealth(10);
             CreatureType = "light";
             RangeOfHit = 3;
@@ -108,7 +108,7 @@ namespace roguelike_spbu
             Name = "Death Knight";
             //Stamina = 2;
             ForceType = "dark";
-            Damage = 18;
+            Damage = 30;
             SetHealth(70);
             CreatureType = "normal";
             RangeOfHit = 2;
@@ -149,7 +149,7 @@ namespace roguelike_spbu
             SetHealth(99);
             CreatureType = "heavy";
             RangeOfHit = 2;
-            XP = 30;
+            XP = 15;
             Description = "1) The generation of experiments of alchemists and golem magicians, however, the experiment was not successful, moreover, it led to the death of the creators. 2) Unlike other artificial creatures, they can reproduce, but they do this at the expense of splitting the flow of mana and making sacrifices. 3) These generations cannot be controlled, at least no one has managed to do so yet.";
         }
     }
@@ -164,8 +164,8 @@ namespace roguelike_spbu
             Name = "Devil";
             //Stamina = 1;
             ForceType = "dark";
-            Damage = 50;
-            SetHealth(250);
+            Damage = 55;
+            SetHealth(255);
             CreatureType = "heavy";
             RangeOfHit = 2;
             XP = 66;
