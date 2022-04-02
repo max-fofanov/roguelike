@@ -350,6 +350,7 @@ namespace roguelike_spbu
         }
         public int GetTotalAttack()
         {
+
             int totalDamage = Damage + (RightHand ?? new Item()).Damage;
 
             if (!IsTwoHandWeaponEquiped())
@@ -375,10 +376,17 @@ namespace roguelike_spbu
 
             return totalDefence;
         }
-        public virtual void Attack(Entity target, Entity initiator)
+        public virtual void Attack(Entity target)
         {
             target.GetDamage(GetTotalAttack());
-            initiator.SetHealth(initiator.HealthPoints + initiator.GetTotalLifesteal(), regen);
+            if (this.HealthPoints + GetTotalLifesteal() > this.MaxHealthPoints)
+            {
+                this.HealthPoints = this.MaxHealthPoints;
+            }
+            else
+            {
+                this.HealthPoints +=GetTotalLifesteal();
+            }
         }
         public virtual void GetDamage(int damage)
         {
