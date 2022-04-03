@@ -365,7 +365,7 @@ namespace roguelike_spbu
         }
         public int GetTotalLifesteal()
         {
-            int totalLifesteal = Lifesteal + (RightHand ?? new Item()).Lifesteal;
+            int totalLifesteal = (RightHand ?? new Item()).Lifesteal;
 
             if (!IsTwoHandWeaponEquiped())
                 totalLifesteal += (LeftHand ?? new Item()).Lifesteal;

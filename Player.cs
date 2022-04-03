@@ -26,6 +26,11 @@ namespace roguelike_spbu
             get;
             set;
         }
+        public int Lifesteal
+        {
+            get;
+            set;
+        }
         public Player(int x, int y, Trait trait = Trait.Saber) : base(x, y)
         {
             this.trait = trait;
@@ -40,6 +45,7 @@ namespace roguelike_spbu
             LVL = 1;
             Inventory = new List<Item>() {  };
             Speed = 2;
+            Lifesteal = 0;
         }
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 

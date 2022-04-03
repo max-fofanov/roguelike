@@ -106,7 +106,7 @@ namespace roguelike_spbu
                 monsters.Add(new Demon(x,y));
                 monsters.Add(new Angel(x,y));
 
-                float[] monsterschance = { 1000 - 140*(player.LVL + history.Count), 80 - 8*(player.LVL + history.Count), 10 + player.LVL + history.Count,  700 - 100* (player.LVL + history.Count), 30, -10 + 4(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), -61 + 10*(player.LVL + history.Count), -30 + 6*(player.LVL + history.Count), -10 + 2*(history.Count +  player.LVL) ,history.Count +  player.LVL};
+                float[] monsterschance = { 1000 - 140*(player.LVL + history.Count), 80 - 8*(player.LVL + history.Count), 10 + player.LVL + history.Count,  700 - 100* (player.LVL + history.Count), 30, -10 + 4*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), -61 + 10*(player.LVL + history.Count), -30 + 6*(player.LVL + history.Count), -10 + 2*(history.Count +  player.LVL) ,history.Count +  player.LVL};
                 Entity tmp = monsters[Walker.Alias(monsterschance)];
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void))

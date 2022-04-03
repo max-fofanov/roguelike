@@ -160,7 +160,7 @@ namespace roguelike_spbu
         {
             RangeOfView = 14;
             Symbol = "D";
-            PrimaryForegroundColor = ConsoleColor.Cyan;
+            PrimaryForegroundColor = Color.Cyan;
             Name = "Devil";
             //Stamina = 1;
             ForceType = "dark";
