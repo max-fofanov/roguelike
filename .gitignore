@@ -3,6 +3,7 @@ obj/
 
 *.wav
 *.dat
+*.json
 *.sln
 
 .vscode/

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 
 namespace roguelike_spbu {
 
@@ -21,7 +22,7 @@ namespace roguelike_spbu {
             FileStream fs;
 
             if (num >= 0) 
-                fs = new FileStream("./saves/DataFile" + num + ".dat", FileMode.Create);
+                fs = new FileStream("./saves/DataFile" + num + ".", FileMode.Create);
             else
                 return false;
 

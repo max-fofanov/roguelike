@@ -118,8 +118,24 @@ namespace roguelike_spbu
                 entities.Add(tmp);
             }
 
+            for (int i  = 0; i <= GameInfo.player.LVL; i++) {
+                int x = rnd.Next(GameInfo.mapHeight);
+                int y = rnd.Next(GameInfo.mapWidth);
+
+                Chest tmp = new Chest(x, y);
+
+                while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void) || entities.FindAll(e => e.X == x && e.Y == y).Count > 0)
+                {
+                    tmp.X = rnd.Next(GameInfo.mapHeight);
+                    tmp.Y = rnd.Next(GameInfo.mapWidth);
+                }
+                entities.Add(tmp);
+            }
+
             return entities;
         }
+
+
 
         public List<Entity> GetEntitiesInRange()
         {
@@ -232,35 +248,30 @@ namespace roguelike_spbu
                             entity.moveUp();
                         
                         GenerateMap(entity, Generation.From.Up);
-                        new Engine().Turn(true);
                         break;
                     case Action.Down:
                         if (IsNewPlaceOK(entity.X + 1, entity.Y))
                             entity.moveDown();
                             
                         GenerateMap(entity, Generation.From.Down); 
-                        new Engine().Turn(true);
                         break;
                     case Action.Left:
                         if (IsNewPlaceOK(entity.X, entity.Y - 1))
                             entity.moveLeft();
 
                         GenerateMap(entity, Generation.From.Left);
-                        new Engine().Turn(true);
                         break;
                     case Action.Right:
                         if (IsNewPlaceOK(entity.X, entity.Y + 1))
                             entity.moveRight();
 
                         GenerateMap(entity, Generation.From.Right);
-                        new Engine().Turn(true);
                         break;
                     case Action.Quit:
                         Program.NormilizeConsole();
                         break;
                     case Action.Cheat:
                         CheatConsole.Cheat(this);
-                        new Engine().Turn(true);
                         break;    
                     case Action.StayInPlace:
                         entity.PassTurn();
@@ -272,12 +283,10 @@ namespace roguelike_spbu
                     case Action.UseItem:
                         //Console.Beep();
                         entity.UseItem(nextMove.Target, nextMove.Position);
-                        new Engine().Turn(true);
                         break;
                     case Action.Attack:
                         if (nextMove.Target == player.ID) {
                             entity.Attack(player);
-                            new Engine().Turn(true);
                         }
                         else {
                             for (int i = 0; i < entities.Count(); i++)
@@ -285,12 +294,11 @@ namespace roguelike_spbu
                                 if (entities[i].ID == nextMove.Target)
                                 {
                                     player.Attack(entities[i]);
-                                    new Engine().Turn(true);
+                                    
                                     //entities[i].HealthPoints -= player.Damage;
                                     break;
                                 }
                             }
-                            new Engine().Turn(true);
                         }
                         
                         if (player.HealthPoints <= 0) {
@@ -299,9 +307,10 @@ namespace roguelike_spbu
                         }
                         break;
                     default:
-                        new Engine().Turn(true);
                         break;
                 }
+
+                new Engine().Turn(true);
             }
         }
     }
