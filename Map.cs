@@ -5,10 +5,14 @@ namespace roguelike_spbu
     
     [Serializable]
     public class Plane {
-        public Map? map;
-        public List<Entity>? entities;
+        public Map map;
+        public List<Entity> entities;
 
-        public Plane() {}
+        public Plane()
+        {
+            map = new Map(0, 0, -1);
+            entities = new List<Entity>();
+        }
 
         public Plane(Map map, List<Entity> entities) {
             this.map = map;

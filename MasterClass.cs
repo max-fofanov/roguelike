@@ -42,7 +42,6 @@ namespace roguelike_spbu
             engine.GenerateMap(GameInfo.player, Generation.From.Down, true);
             engine.Turn(true);
 
-            
             gui.Print();
         }
         public void FullTurn()

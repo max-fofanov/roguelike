@@ -104,6 +104,7 @@ namespace roguelike_spbu {
         public static TextBox Description = new TextBox(25, 180, 25, 30, "Description", "");
         public static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
         public static MenuBox MenuBox = new MenuBox(30, 30, "Menu", new List<string>() { "Resume", "Save Game", "Load Game", "Toggle music", "Controls", "Quit"});
+        public static ImageBox StartingScreen = new ImageBox(0, 0, "./StartingScreen.txt", true);
         static string controlsText = "Escape - enter/exit menu\n\n" +
                                     "Up/down arrow (in windows) - navigate in window\n\n" +
                                     "Enter - choose selected item\n\n" +
@@ -125,6 +126,7 @@ namespace roguelike_spbu {
             windows.Add(Mode);
             windows.Add(MenuBox);
             windows.Add(Control);
+            windows.Add(StartingScreen);
             return windows;
         }
     }
@@ -150,7 +152,7 @@ namespace roguelike_spbu {
         }
         public GUI()
         {
-            UpdateMode(GameState.Game);
+            UpdateMode(GameState.StatingScreen);
             if (CheckIntersection(out (int, int) overlappingWindows))
             {
                 error = true;
@@ -600,6 +602,12 @@ namespace roguelike_spbu {
             {
                 ConsoleKeyInfo key = GetKey();
 
+                if (gameState == GameState.StatingScreen)
+                {
+                    GameGUIWindows.StartingScreen.Active = false;
+                    UpdateMode(GameState.Game);
+                }
+
                 if (key.Key == ConsoleKey.Q)
                     return new ActionInfo(Action.Quit);
                 else if (gameState == GameState.Controls)
@@ -1000,6 +1008,39 @@ namespace roguelike_spbu {
         override public string[,] GetInsides()
         {
             return Renderer.Render(GameInfo.history[GameInfo.currentMap].map, GameInfo.history[GameInfo.currentMap].entities, GameInfo.player, GameInfo.allVisible);
+        }
+    }
+    public class ImageBox : Window
+    {
+        string[,] inners = new string[0, 0];
+        public ImageBox(int x, int y, string path, bool active = false)
+        {
+            X = x;
+            Y = y;
+            FullSreen = true;
+            Active = active;
+
+            string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+            Height = lines.Count() + 2;
+            Width = Height > 0 ? (lines.Max(line => line.Length) + 2) : 2;
+
+            inners = new string[Height - 2, Width - 2];
+
+            for (int i = 0; i < Height - 2; i++)
+                for (int j = 0; j < Width - 2; j++)
+                    inners[i, j] = " ";
+
+            for (int i = 0; i < Height - 2; i++)
+            {
+                for (int j = 0; j < lines[i].Length; j++)
+                {
+                    inners[i, j] = lines[i][j].ToString();
+                }
+            }
+        }
+        override public string[,] GetInsides()
+        {
+            return inners;
         }
     }
     public class TextBox : Window

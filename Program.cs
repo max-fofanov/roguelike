@@ -1,4 +1,5 @@
 ﻿﻿using System;
+using System.Text;
 using NetCoreAudio;
 
 namespace roguelike_spbu
@@ -7,15 +8,19 @@ namespace roguelike_spbu
     {
         static ConsoleColor backgroundColor;
         static ConsoleColor foregroundColor;
+        static Encoding encoding = Encoding.UTF8;
 
 
         public static void MakeConsoleReady()
         {
             Console.Clear();
             Console.CursorVisible = false;
+
+            encoding = Console.OutputEncoding;
             backgroundColor = Console.BackgroundColor;
             foregroundColor = Console.ForegroundColor;
 
+            Console.OutputEncoding = Encoding.UTF8;
             Statistics.InvokeCtor();
         }
 
@@ -26,6 +31,7 @@ namespace roguelike_spbu
 
             Console.BackgroundColor = backgroundColor;
             Console.ForegroundColor = foregroundColor;
+            Console.OutputEncoding = encoding;
 
             Statistics.statistics["maxLevel"] = Math.Max((int)Statistics.statistics["maxLevel"], GameInfo.player.LVL);
             Statistics.statistics["timeInGame"] = (long)Statistics.statistics["timeInGame"] + (DateTime.Now.Ticks - GameInfo.startTime);
