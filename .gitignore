@@ -3,4 +3,8 @@ obj/
 
 *.wav
 *.dat
+*.sln
+
+.vscode/
+.vs/
 
