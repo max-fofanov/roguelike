@@ -237,7 +237,7 @@ namespace roguelike_spbu
         }
         void ElementaryTurn(Entity entity)
         {
-            for (int j = 0; j < entity.Speed; j++) {
+            
             
                 ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
@@ -310,8 +310,7 @@ namespace roguelike_spbu
                         break;
                 }
 
-                new Engine().Turn(true);
-            }
+            
         }
     }
 }
