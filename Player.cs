@@ -39,6 +39,7 @@ namespace roguelike_spbu
             PrimaryForegroundColor = color;
             LVL = 1;
             Inventory = new List<Item>() {  };
+            Speed = 2;
         }
         public override ActionInfo GetNextMove(Map map, List<Entity> entities, Player player) {
 

@@ -67,6 +67,11 @@ namespace roguelike_spbu
             set;
             get;
         }
+
+        public int Speed {
+            get;
+            set;
+        }
         public int X
         {
             get;

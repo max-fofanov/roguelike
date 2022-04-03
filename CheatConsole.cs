@@ -15,7 +15,13 @@ namespace roguelike_spbu {
                     engine.player.Damage = 999999;
                     break;
                 case ConsoleKey.K:
-                    engine.entities.ForEach(e => e.HealthPoints = -999);
+                    void foo(Entity entity) {
+                        if (entity is Chest) {}
+                        else {
+                            entity.HealthPoints = -999;
+                        }
+                    }
+                    engine.entities.ForEach(e =>  foo(e));
                     break;
                 case ConsoleKey.P:
                     engine.entities.ForEach(e => e.Damage = 0);

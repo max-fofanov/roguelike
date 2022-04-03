@@ -3,6 +3,9 @@ obj/
 
 *.wav
 *.dat
-*.csproj
+*.json
+*.sln
 
+.vscode/
+.vs/
 

@@ -119,8 +119,24 @@ namespace roguelike_spbu
                 entities.Add(tmp);
             }
 
+            for (int i  = 0; i <= GameInfo.player.LVL; i++) {
+                int x = rnd.Next(GameInfo.mapHeight);
+                int y = rnd.Next(GameInfo.mapWidth);
+
+                Chest tmp = new Chest(x, y);
+
+                while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void) || entities.FindAll(e => e.X == x && e.Y == y).Count > 0)
+                {
+                    tmp.X = rnd.Next(GameInfo.mapHeight);
+                    tmp.Y = rnd.Next(GameInfo.mapWidth);
+                }
+                entities.Add(tmp);
+            }
+
             return entities;
         }
+
+
 
         public List<Entity> GetEntitiesInRange()
         {
@@ -222,74 +238,80 @@ namespace roguelike_spbu
         }
         void ElementaryTurn(Entity entity)
         {
-            ActionInfo nextMove = entity.GetNextMove(map, entities, player);
+            
+            
+                ActionInfo nextMove = entity.GetNextMove(map, entities, player);
 
-            switch (nextMove.Action)
-            {
-                case Action.Up:
-                    if (IsNewPlaceOK(entity.X - 1, entity.Y))
-                        entity.moveUp();
-                    
-                    GenerateMap(entity, Generation.From.Up);
-                    break;
-                case Action.Down:
-                    if (IsNewPlaceOK(entity.X + 1, entity.Y))
-                        entity.moveDown();
+                switch (nextMove.Action)
+                {
+                    case Action.Up:
+                        if (IsNewPlaceOK(entity.X - 1, entity.Y))
+                            entity.moveUp();
                         
-                    GenerateMap(entity, Generation.From.Down); 
-                    break;
-                case Action.Left:
-                    if (IsNewPlaceOK(entity.X, entity.Y - 1))
-                        entity.moveLeft();
+                        GenerateMap(entity, Generation.From.Up);
+                        break;
+                    case Action.Down:
+                        if (IsNewPlaceOK(entity.X + 1, entity.Y))
+                            entity.moveDown();
+                            
+                        GenerateMap(entity, Generation.From.Down); 
+                        break;
+                    case Action.Left:
+                        if (IsNewPlaceOK(entity.X, entity.Y - 1))
+                            entity.moveLeft();
 
-                    GenerateMap(entity, Generation.From.Left);
-                    break;
-                case Action.Right:
-                    if (IsNewPlaceOK(entity.X, entity.Y + 1))
-                        entity.moveRight();
+                        GenerateMap(entity, Generation.From.Left);
+                        break;
+                    case Action.Right:
+                        if (IsNewPlaceOK(entity.X, entity.Y + 1))
+                            entity.moveRight();
 
-                    GenerateMap(entity, Generation.From.Right);
-                    break;
-                case Action.Quit:
-                    Program.NormilizeConsole();
-                    break;
-                case Action.Cheat:
-                    CheatConsole.Cheat(this);
-                    break;    
-                case Action.StayInPlace:
-                    entity.PassTurn();
-                    break;
-                case Action.ChangeColor:
-                    break;
-                case Action.GiveEffect:
-                    break;
-                case Action.UseItem:
-                    //Console.Beep();
-                    entity.UseItem(nextMove.Target, nextMove.Position);
-                    break;
-                case Action.Attack:
-                    if (nextMove.Target == player.ID)
-                        entity.Attack(player);
-                    else
-                        for (int i = 0; i < entities.Count(); i++)
-                        {
-                            if (entities[i].ID == nextMove.Target)
+                        GenerateMap(entity, Generation.From.Right);
+                        break;
+                    case Action.Quit:
+                        Program.NormilizeConsole();
+                        break;
+                    case Action.Cheat:
+                        CheatConsole.Cheat(this);
+                        break;    
+                    case Action.StayInPlace:
+                        entity.PassTurn();
+                        break;
+                    case Action.ChangeColor:
+                        break;
+                    case Action.GiveEffect:
+                        break;
+                    case Action.UseItem:
+                        //Console.Beep();
+                        entity.UseItem(nextMove.Target, nextMove.Position);
+                        break;
+                    case Action.Attack:
+                        if (nextMove.Target == player.ID) {
+                            entity.Attack(player);
+                        }
+                        else {
+                            for (int i = 0; i < entities.Count(); i++)
                             {
-                                player.Attack(entities[i]);
-
-                                //entities[i].HealthPoints -= player.Damage;
-                                break;
+                                if (entities[i].ID == nextMove.Target)
+                                {
+                                    player.Attack(entities[i]);
+                                    
+                                    //entities[i].HealthPoints -= player.Damage;
+                                    break;
+                                }
                             }
                         }
+                        
+                        if (player.HealthPoints <= 0) {
+                            Statistics.statistics["deaths"] = (int) Statistics.statistics["deaths"] + 1;
+                            Program.NormilizeConsole();
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
-                    if (player.HealthPoints <= 0) {
-                        Statistics.statistics["deaths"] = (int) Statistics.statistics["deaths"] + 1;
-                        Program.NormilizeConsole();
-                    }
-                    break;
-                default:
-                    break;
-            }
+            
         }
     }
 }
