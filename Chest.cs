@@ -3,6 +3,7 @@ using System.Drawing;
 
 namespace roguelike_spbu
 {
+    [Serializable]
     public class Chest : Entity
     {
         public Chest(int x, int y) : base(x, y)
