@@ -96,7 +96,7 @@ namespace roguelike_spbu {
 
             return Inventory[num];
         }
-        public static Window MiniMap = new Window(0, 0, 17, 30);
+        public static TextBox MiniMap = new TextBox(0, 0, 17, 30, "", "\n\n         #       #\n         ##      ####\n          ##     ####\n        #  ##    ##\n        ## ###   ##\n         ## ###  ##\n        ###########\n       ############\n      #############\n     ### #  #  #  #\n    ##   #  #  #  #");
         public static TextBox Statistics = new TextBox(16, 0, 36, 30, "Stats", "");
         public static Window GameBox = new GameBox(0, 29, 42, 152);
         public static ListBox UnderBar = new ListBox(41, 29, 11, 152, "", new List<string>());
