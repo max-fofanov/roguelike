@@ -220,8 +220,8 @@ namespace roguelike_spbu
         {
             Type = ItemType.OneHandWeapon;
             Name = "Magic Strike";
-            Damage = 25;
-            RangeOfHit = 3;
+            Damage = 50;
+            RangeOfHit = 1;
             //Symbol = "*";
             Description = "A powerful spell with a circular attack that hits all enemies in the radius of destruction, weaker than high magic focused on one target, but not inferior to the average one.";
         }

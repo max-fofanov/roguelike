@@ -8,26 +8,28 @@ namespace roguelike_spbu
         public int RightEvent;
         public float border;
     }
-    static public class Walker
+   static public class Walker
     {
         public static int Alias(float[] probabilities)
         {
             float[] table = new float[probabilities.Length];
             int[] indexies = new int[probabilities.Length];
             int index = 0;
-            for(int i =0; i < probabilities.Length; i++)
+            int Trindex = 0;
+            for (int i = 0; i < probabilities.Length; i++)
             {
                 if (probabilities[i] <= 0)
                 {
-                    index +=1;
+                    Trindex += 1;
                 }
                 else
                 {
-                    table[i] = probabilities[i];
+                    table[index] = probabilities[i];
+                    indexies[index] = i;
+                    index += 1;
                 }
-                indexies[i] = index; 
             }
-            Array.Resize(ref table, probabilities.Length - index);
+            Array.Resize(ref table, probabilities.Length - Trindex);
 
             float fullchance = table.Sum();
 
@@ -60,7 +62,7 @@ namespace roguelike_spbu
                 bord[i].border = i * cell + lokmin;
                 bord[i].LeftEvent = minindex;
                 bord[i].RightEvent = maxindex;
-                
+
                 table[maxindex] -= cell - lokmin;
                 table[minindex] = 0;
 
@@ -75,10 +77,10 @@ namespace roguelike_spbu
 
             float r = rnd.Next(0, intfullchance);
 
-            r /= (float) Math.Pow(10, length);
+            r /= (float)Math.Pow(10, length);
 
-            int cellnumb = (int) (r * quantity / fullchance);
-            return r < bord[cellnumb].border ?  indexies[bord[cellnumb].LeftEvent] : indexies[bord[cellnumb].RightEvent];
+            int cellnumb = (int)(r * quantity / fullchance);
+            return r < bord[cellnumb].border ? indexies[bord[cellnumb].LeftEvent] : indexies[bord[cellnumb].RightEvent];
         }
     }
 }

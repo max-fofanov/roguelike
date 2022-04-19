@@ -119,11 +119,14 @@ namespace roguelike_spbu
                 entities.Add(tmp);
             }
 
-            for (int i  = 0; i <= GameInfo.player.LVL; i++) {
+            for (int i  = 0; i <= Math.Min(GameInfo.player.LVL, 4); i++) {
                 int x = rnd.Next(GameInfo.mapHeight);
                 int y = rnd.Next(GameInfo.mapWidth);
 
+                
+                
                 Chest tmp = new Chest(x, y);
+                
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void) || entities.FindAll(e => e.X == x && e.Y == y).Count > 0)
                 {
