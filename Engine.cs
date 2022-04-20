@@ -104,8 +104,9 @@ namespace roguelike_spbu
                 monsters.Add(new Devil (x, y));
                 monsters.Add(new Archangel(x, y));
                 monsters.Add(new Demon(x,y));
+                monsters.Add(new Angel(x,y));
 
-                float[] monsterschance = { Math.Max(1, 1000 - 140*(player.LVL + history.Count)),  Math.Max(20, 80 - 8*(player.LVL + history.Count)), 10 + player.LVL + history.Count,  Math.Max(1, 700 - 100* (player.LVL + history.Count)), 30, 20 + player.LVL + history.Count, 1 + 3*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), 1 + 4*(player.LVL + history.Count)};
+                float[] monsterschance = { 1000 - 140*(player.LVL + history.Count), 80 - 8*(player.LVL + history.Count), 10 + player.LVL + history.Count,  700 - 100* (player.LVL + history.Count), 30, -10 + 4*(player.LVL + history.Count), 1 + 3*(player.LVL + history.Count), -61 + 10*(player.LVL + history.Count), -30 + 6*(player.LVL + history.Count), -10 + 2*(history.Count +  player.LVL) ,history.Count +  player.LVL};
                 Entity tmp = monsters[Walker.Alias(monsterschance)];
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void))
@@ -118,11 +119,14 @@ namespace roguelike_spbu
                 entities.Add(tmp);
             }
 
-            for (int i  = 0; i <= GameInfo.player.LVL; i++) {
+            for (int i  = 0; i <= Math.Min(GameInfo.player.LVL, 4); i++) {
                 int x = rnd.Next(GameInfo.mapHeight);
                 int y = rnd.Next(GameInfo.mapWidth);
 
+                
+                
                 Chest tmp = new Chest(x, y);
+                
 
                 while (this.map.Tiles[tmp.X][tmp.Y].Impassable || this.map.Tiles[tmp.X][tmp.Y].GetType() == typeof(Void) || entities.FindAll(e => e.X == x && e.Y == y).Count > 0)
                 {

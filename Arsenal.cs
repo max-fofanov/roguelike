@@ -101,7 +101,8 @@ namespace roguelike_spbu
         {
             Type = ItemType.TwoHandWeapon;
             Name = "Frostmourne";
-            Damage = 100;
+            Damage = 80;
+            Lifesteal = 20;
             RangeOfHit = 1;
             //Symbol = "F";
             Description = "For the glory of the whip!";
@@ -174,6 +175,19 @@ namespace roguelike_spbu
         }
     }
     [Serializable]
+    class Lifesteal: Item
+    {
+        public Lifesteal()
+        {
+            Type = ItemType.TwoHandWeapon;
+            Name = "Lifesteal";
+            Damage = 20;
+            Lifesteal = 20;
+            RangeOfHit = 4;
+            Description = "Lifesteal!!!";
+        }
+    }
+    [Serializable]
     class Flamestrike: Item //all enemy
     {
         public Flamestrike()
@@ -206,8 +220,8 @@ namespace roguelike_spbu
         {
             Type = ItemType.OneHandWeapon;
             Name = "Magic Strike";
-            Damage = 25;
-            RangeOfHit = 3;
+            Damage = 50;
+            RangeOfHit = 1;
             //Symbol = "*";
             Description = "A powerful spell with a circular attack that hits all enemies in the radius of destruction, weaker than high magic focused on one target, but not inferior to the average one.";
         }
@@ -221,8 +235,9 @@ namespace roguelike_spbu
         {
             Type = ItemType.TwoHandWeapon;
             Name = "Enchanted Axe";
-            Damage = 45;
+            Damage = 40;
             RangeOfHit = 1;
+            Lifesteal = 4;
             Description = "An enchanted ax from the northern lands of the old mainland, it is difficult to say what kind of symbols are engraved on it. You can see the sign of the moon, but the old religion does not recognize the influence of Thealnebris...";
         }
     }
