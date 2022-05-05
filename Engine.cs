@@ -307,7 +307,8 @@ namespace roguelike_spbu
                         
                         if (player.HealthPoints <= 0) {
                             Statistics.statistics["deaths"] = (int) Statistics.statistics["deaths"] + 1;
-                            Program.NormilizeConsole();
+                            
+                            SystemInfo.gui.EndGame();
                         }
                         break;
                     default:

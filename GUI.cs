@@ -105,6 +105,7 @@ namespace roguelike_spbu {
         public static TextBox Mode = new TextBox(49, 180, 3, 30, "Mode", "");
         public static MenuBox MenuBox = new MenuBox(30, 30, "Menu", new List<string>() { "Resume", "Save Game", "Load Game", "Toggle music", "Controls", "Quit"});
         public static ImageBox StartingScreen = new ImageBox(0, 0, "./StartingScreen.txt", true);
+        public static ImageBox EndingScreen = new ImageBox(0, 0, "./EndingScreen.txt", false);
         static string controlsText = "Escape - enter/exit menu\n\n" +
                                     "Up/down arrow (in windows) - navigate in window\n\n" +
                                     "Enter - choose selected item\n\n" +
@@ -127,6 +128,7 @@ namespace roguelike_spbu {
             windows.Add(MenuBox);
             windows.Add(Control);
             windows.Add(StartingScreen);
+            windows.Add(EndingScreen);
             return windows;
         }
     }
@@ -430,6 +432,20 @@ namespace roguelike_spbu {
             GameGUIWindows.ListBox.UpdateList(new List<string>());
 
             GameGUIWindows.Description.UpdateText("");
+        }
+        public void EndGame()
+        {
+            GameGUIWindows.EndingScreen.TurnOn();
+            Print();
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            while (keyInfo.Key != ConsoleKey.Enter)
+            {
+                Console.ReadKey(true);
+            }
+
+            Program.NormilizeConsole();
         }
         public bool ExecuteMenu(int num)
         {
