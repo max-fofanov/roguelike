@@ -533,7 +533,7 @@ namespace roguelike_spbu {
                     case ConsoleKey.DownArrow:
                         GameGUIWindows.UnderBar.ScroolDown();
                         break;
-                    case ConsoleKey.T:
+                    case ConsoleKey.Enter:
                         //Console.Beep();
                         Item temp = GameGUIWindows.GetChestInRange(GameGUIWindows.SelectedChest).Inventory[GameGUIWindows.UnderBar.currentLine];
                         GameInfo.player.AddToInventory(temp);
@@ -650,7 +650,7 @@ namespace roguelike_spbu {
                     {
                         DoChestStuff(key.Key);
                     }
-                    if (gameState == GameState.ChestInventory)
+                    else if (gameState == GameState.ChestInventory) //changed this
                     {
                         DoChestInventory(key.Key);
                     }
