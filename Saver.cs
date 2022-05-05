@@ -22,7 +22,7 @@ namespace roguelike_spbu {
             FileStream fs;
 
             if (num >= 0) 
-                fs = new FileStream("./saves/DataFile" + num + ".", FileMode.Create);
+                fs = new FileStream("./saves/DataFile" + num + ".dat", FileMode.Create);
             else
                 return false;
 
